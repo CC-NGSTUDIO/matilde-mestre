@@ -127,9 +127,77 @@
   document.querySelectorAll("[data-ano]").forEach((el) => (el.textContent = new Date().getFullYear()));
 
   /* ── WhatsApp ─────────────────────────────────────────────────────────── */
-  if (whats && S.whatsapp) {
+  if (S.whatsapp) {
     const num = String(S.whatsapp.numero || "").replace(/\D/g, "");
-    whats.href = `https://wa.me/${num}?text=${encodeURIComponent(S.whatsapp.mensagem || "")}`;
+    const link = `https://wa.me/${num}?text=${encodeURIComponent(S.whatsapp.mensagem || "")}`;
+    document.querySelectorAll(".whats, .js-whats").forEach((a) => (a.href = link));
+  }
+
+  /* ── Faixa de marcas: repete até cobrir a tela e duplica para girar sem emenda */
+  document.querySelectorAll(".marcas-trilho").forEach((trilho) => {
+    const lista = trilho.querySelector(".marcas-lista");
+    if (!lista) return;
+    const originais = [...lista.children];
+    let voltas = 0;
+    while (lista.scrollWidth < innerWidth * 1.1 && voltas++ < 6) {
+      originais.forEach((li) => { const c = li.cloneNode(true); c.setAttribute("aria-hidden", "true"); lista.appendChild(c); });
+    }
+    const copia = lista.cloneNode(true);
+    copia.setAttribute("aria-hidden", "true");
+    trilho.appendChild(copia);
+  });
+
+  /* ── Serviços: faixa que corre por cima do item no hover ─────────────── */
+  document.querySelectorAll(".itens li").forEach((li) => {
+    const nome = li.querySelector(".item-nome");
+    if (!nome) return;
+    const faixa = document.createElement("span");
+    faixa.className = "item-faixa";
+    faixa.setAttribute("aria-hidden", "true");
+    const trilho = document.createElement("span");
+    trilho.className = "item-faixa-trilho";
+    const pedaco = `<span>${nome.textContent}<img src="assets/avatar.webp" alt="" width="30" height="30"></span>`;
+    trilho.innerHTML = pedaco.repeat(16);
+    faixa.appendChild(trilho);
+    li.appendChild(faixa);
+  });
+
+  /* ── "Iniciar um projeto" leva ao formulário e já coloca o cursor no nome */
+  document.querySelectorAll('a[href="#f-nome"]').forEach((a) => a.addEventListener("click", (ev) => {
+    const campo = document.getElementById("f-nome");
+    if (!campo) return;
+    ev.preventDefault();
+    campo.closest(".painel").scrollIntoView({ behavior: reduzir ? "auto" : "smooth", block: "center" });
+    setTimeout(() => campo.focus({ preventScroll: true }), reduzir ? 0 : 700);
+  }));
+
+  /* ── Efeitos de mouse (só em telas com mouse) ────────────────────────── */
+  if (!reduzir && matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    // Luz que segue o cursor dentro dos blocos de vidro
+    document.querySelectorAll(".painel").forEach((p) => p.addEventListener("pointermove", (ev) => {
+      const r = p.getBoundingClientRect();
+      p.style.setProperty("--mx", `${ev.clientX - r.left}px`);
+      p.style.setProperty("--my", `${ev.clientY - r.top}px`);
+    }));
+    // Botões magnéticos: puxam levemente na direção do cursor
+    document.querySelectorAll(".botao, .whats, .menu-cta").forEach((b) => {
+      b.addEventListener("pointermove", (ev) => {
+        const r = b.getBoundingClientRect();
+        const x = (ev.clientX - r.left - r.width / 2) / r.width;
+        const y = (ev.clientY - r.top - r.height / 2) / r.height;
+        b.style.translate = `${(x * 10).toFixed(1)}px ${(y * 8).toFixed(1)}px`;
+      });
+      b.addEventListener("pointerleave", () => (b.style.translate = ""));
+    });
+    // Imagens do portfólio inclinam de leve acompanhando o cursor
+    document.querySelectorAll(".peca").forEach((p) => {
+      p.addEventListener("pointermove", (ev) => {
+        const r = p.getBoundingClientRect();
+        const x = (ev.clientX - r.left) / r.width - 0.5, y = (ev.clientY - r.top) / r.height - 0.5;
+        p.style.transform = `perspective(1000px) rotateX(${(-y * 4).toFixed(2)}deg) rotateY(${(x * 5).toFixed(2)}deg) translateY(-6px)`;
+      });
+      p.addEventListener("pointerleave", () => (p.style.transform = ""));
+    });
   }
 
   /* ── Formulário → e-mail ──────────────────────────────────────────────── */

@@ -17,9 +17,10 @@
   <link rel="canonical" href="https://cc-ngstudio.github.io/matilde-mestre/">
   <meta name="theme-color" content="#F5F6F7">
   <link rel="icon" href="assets/logo-monograma.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="assets/frames/desktop/f_0001.webp">
   <link rel="stylesheet" href="estilo.css">
 </head>
@@ -27,19 +28,19 @@
 
 <header class="topo">
   <a href="#inicio" class="marca" aria-label="Matilde Mestre, voltar ao início">
-    <img src="assets/logo.png" alt="Matilde Mestre" class="marca-logo" width="1200" height="200">
+    <img src="assets/logo.png" alt="Matilde Mestre" class="marca-logo" width="637" height="200">
   </a>
   <nav class="menu" aria-label="Seções">
+    <a href="#portfolio">Portfólio</a>
     <a href="#sobre">Sobre</a>
     <a href="#servicos">Serviços</a>
-    <a href="#portfolio">Portfólio</a>
-    <a href="#contato" class="menu-cta">Fale conosco</a>
+    <a href="#contato" class="menu-cta">Fale comigo</a>
   </nav>
 </header>
 
 <main>
 
-  <!-- ABERTURA: o vídeo toca com a rolagem -->
+  <!-- ABERTURA: o vídeo toca com a rolagem; as marcas passam no pé da tela -->
   <section id="inicio" class="cine" style="--altura: 440vh">
     <div class="cine-palco">
       <canvas class="cine-canvas" aria-hidden="true"></canvas>
@@ -60,20 +61,149 @@
       <div class="momento momento--centro" data-de="0.74" data-ate="1">
         <div class="painel painel--vidro">
           <p class="destaque">Não criamos apenas marcas. <em>Assinamos histórias.</em></p>
-          <a href="#contato" class="botao">Começar meu projeto</a>
+          <a href="#contato" class="botao botao--avatar"><span class="botao-txt">Começar meu projeto</span><img class="botao-ava" src="assets/avatar.webp" alt="" width="160" height="160"></a>
         </div>
       </div>
 
-      <div class="cine-dica" aria-hidden="true"><span></span>role</div>
+      <div class="marcas" role="region" aria-label="Marcas que já assinamos">
+        <div class="marcas-trilho">
+          <ul class="marcas-lista">
+            <li><img src="assets/marcas/ferraritech.png" alt="Ferraritech" width="858" height="120"></li>
+            <li><img src="assets/marcas/nagali.png" alt="Nagali City" width="384" height="120"></li>
+            <li><img src="assets/marcas/bibas.png" alt="Biba's Sorveteria" width="309" height="120"></li>
+            <li><img src="assets/marcas/luxo.png" alt="Luxo Interiores" width="435" height="120"></li>
+            <li><img src="assets/marcas/mira.png" alt="Mira Pilates &amp; Wellness" width="208" height="120"></li>
+            <li><img src="assets/marcas/voltix.png" alt="Voltix" width="384" height="120"></li>
+            <li><img src="assets/marcas/nova-raiz.png" alt="Nova Raiz" width="268" height="120"></li>
+            <li><img src="assets/marcas/instinto.png" alt="Instinto" width="214" height="120"></li>
+            <li><img src="assets/marcas/reserva-edu.png" alt="ReservaEdu" width="282" height="120"></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 01 SOBRE -->
+  <!-- 01 PORTFÓLIO: categoria fixa à esquerda, imagens passando à direita -->
+  <section id="portfolio" class="trabalhos">
+    <div class="painel trabalhos-topo revelar">
+      <div>
+        <span class="rotulo">01 · Portfólio</span>
+        <h2>Trabalhos em <em>destaque</em></h2>
+      </div>
+      <p>Marcas reais, do primeiro rascunho às aplicações. Clique em qualquer projeto para ver o caso completo no Behance.</p>
+    </div>
+
+    <article class="trabalho">
+      <div class="trabalho-info">
+        <div class="painel trabalho-painel">
+          <span class="trabalho-sobre">Trabalhos em destaque</span>
+          <h3 class="trabalho-categoria">Branding</h3>
+          <p>Assistência técnica especializada em fogões, fornos e cooktops. A marca saiu do visual genérico do setor e ganhou cara de alta tecnologia e precisão: logotipo com a chama, ícone, paleta laranja e grafite e aplicações em embalagem, crachá e boné.</p>
+          <div class="cliente">
+            <span class="cliente-rotulo">Cliente</span>
+            <span class="cliente-nome"><img src="assets/marcas/ferraritech.png" alt="" width="858" height="120">Ferraritech</span>
+          </div>
+          <a class="botao botao--avatar" href="https://www.behance.net/gallery/255776523/IDENTIDADE-VISUAL-FERRARITECH" target="_blank" rel="noopener"><span class="botao-txt">Ver projeto</span><img class="botao-ava" src="assets/avatar.webp" alt="" width="160" height="160"></a>
+        </div>
+      </div>
+      <div class="trabalho-imagens">
+        <a class="peca" href="https://www.behance.net/gallery/255776523/IDENTIDADE-VISUAL-FERRARITECH" target="_blank" rel="noopener" aria-label="Ver projeto Ferraritech no Behance">
+          <img src="assets/portfolio/ferraritech-capa.webp" alt="Logotipo Ferraritech sobre degradê laranja e grafite" loading="lazy" width="1051" height="582">
+          <span class="peca-ver">Ver projeto ↗</span>
+        </a>
+        <a class="peca" href="https://www.behance.net/gallery/255776523/IDENTIDADE-VISUAL-FERRARITECH" target="_blank" rel="noopener" aria-label="Ver aplicações da Ferraritech no Behance">
+          <img src="assets/portfolio/ferraritech-2.webp" alt="Celular, embalagem, crachá e boné com a marca Ferraritech" loading="lazy" width="808" height="540">
+          <span class="peca-ver">Ver projeto ↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="trabalho">
+      <div class="trabalho-info">
+        <div class="painel trabalho-painel">
+          <span class="trabalho-sobre">Trabalhos em destaque</span>
+          <h3 class="trabalho-categoria">Manual da Marca</h3>
+          <p>Uma cidade de GTA RP que é comunidade antes de ser servidor. Identidade com estética urbana e street: logotipo em grafite com escorrido, monograma NG, tipografia PGR Fight Black e peças para Discord e redes sociais.</p>
+          <div class="cliente">
+            <span class="cliente-rotulo">Cliente</span>
+            <span class="cliente-nome"><img src="assets/marcas/nagali.png" alt="" width="384" height="120">Nagali City</span>
+          </div>
+          <a class="botao botao--avatar" href="https://www.behance.net/gallery/254847563/IDENTIDADE-VISUAL-NAGALI-CITY" target="_blank" rel="noopener"><span class="botao-txt">Ver projeto</span><img class="botao-ava" src="assets/avatar.webp" alt="" width="160" height="160"></a>
+        </div>
+      </div>
+      <div class="trabalho-imagens">
+        <a class="peca" href="https://www.behance.net/gallery/254847563/IDENTIDADE-VISUAL-NAGALI-CITY" target="_blank" rel="noopener" aria-label="Ver projeto Nagali City no Behance">
+          <img src="assets/portfolio/nagali-capa.webp" alt="Logotipo Nagali em grafite branco sobre fundo roxo" loading="lazy" width="1048" height="576">
+          <span class="peca-ver">Ver projeto ↗</span>
+        </a>
+        <a class="peca" href="https://www.behance.net/gallery/254847563/IDENTIDADE-VISUAL-NAGALI-CITY" target="_blank" rel="noopener" aria-label="Ver peças de redes sociais da Nagali City no Behance">
+          <img src="assets/portfolio/nagali-2.webp" alt="Posts da Nagali City para Discord e redes sociais" loading="lazy" width="1400" height="782">
+          <span class="peca-ver">Ver projeto ↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="trabalho">
+      <div class="trabalho-info">
+        <div class="painel trabalho-painel">
+          <span class="trabalho-sobre">Trabalhos em destaque</span>
+          <h3 class="trabalho-categoria">Identidade Visual</h3>
+          <p>Identidade completa para uma sorveteria artesanal: logotipo e isotipo, paleta em coral, azul e creme, um mascote de sorvete e todas as aplicações, dos potes e casquinhas à sacola, às camisetas, à fachada e aos posts.</p>
+          <div class="cliente">
+            <span class="cliente-rotulo">Cliente</span>
+            <span class="cliente-nome"><img src="assets/marcas/bibas.png" alt="" width="309" height="120">Biba’s Sorveteria</span>
+          </div>
+          <a class="botao botao--avatar" href="https://www.behance.net/gallery/250628149/IDENTIDADE-VISUAL-BIBAS-SORVETERIA" target="_blank" rel="noopener"><span class="botao-txt">Ver projeto</span><img class="botao-ava" src="assets/avatar.webp" alt="" width="160" height="160"></a>
+        </div>
+      </div>
+      <div class="trabalho-imagens">
+        <a class="peca" href="https://www.behance.net/gallery/250628149/IDENTIDADE-VISUAL-BIBAS-SORVETERIA" target="_blank" rel="noopener" aria-label="Ver projeto Biba's Sorveteria no Behance">
+          <img src="assets/portfolio/bibas-capa.webp" alt="Logotipo da Biba's Sorveteria sobre textura de sorvete de morango" loading="lazy" width="1049" height="587">
+          <span class="peca-ver">Ver projeto ↗</span>
+        </a>
+        <a class="peca" href="https://www.behance.net/gallery/250628149/IDENTIDADE-VISUAL-BIBAS-SORVETERIA" target="_blank" rel="noopener" aria-label="Ver a fachada da Biba's no Behance">
+          <img src="assets/portfolio/bibas-2.webp" alt="Fachada da loja com a identidade da Biba's" loading="lazy" width="657" height="489">
+          <span class="peca-ver">Ver projeto ↗</span>
+        </a>
+      </div>
+    </article>
+
+    <article class="trabalho">
+      <div class="trabalho-info">
+        <div class="painel trabalho-painel">
+          <span class="trabalho-sobre">Trabalhos em destaque</span>
+          <h3 class="trabalho-categoria">Brand Board</h3>
+          <p>Estúdio de design de interiores com marca à altura dos projetos que assina: logotipo, monograma, paleta em preto carvão, bordô e ouro envelhecido e aplicações em papelaria, fachada, uniforme e objetos.</p>
+          <div class="cliente">
+            <span class="cliente-rotulo">Cliente</span>
+            <span class="cliente-nome"><img src="assets/marcas/luxo.png" alt="" width="435" height="120">Luxo Interiores</span>
+          </div>
+          <a class="botao botao--avatar" href="https://www.behance.net/gallery/249944073/Brand-Board-LUXO-INTERIORES" target="_blank" rel="noopener"><span class="botao-txt">Ver projeto</span><img class="botao-ava" src="assets/avatar.webp" alt="" width="160" height="160"></a>
+        </div>
+      </div>
+      <div class="trabalho-imagens">
+        <a class="peca" href="https://www.behance.net/gallery/249944073/Brand-Board-LUXO-INTERIORES" target="_blank" rel="noopener" aria-label="Ver projeto Luxo Interiores no Behance">
+          <img src="assets/portfolio/luxo-capa.webp" alt="Logotipo Luxo Interiores sobre fachada de concreto" loading="lazy" width="1050" height="592">
+          <span class="peca-ver">Ver projeto ↗</span>
+        </a>
+        <a class="peca" href="https://www.behance.net/gallery/249944073/Brand-Board-LUXO-INTERIORES" target="_blank" rel="noopener" aria-label="Ver aplicações da Luxo Interiores no Behance">
+          <img src="assets/portfolio/luxo-2.webp" alt="Cartão, fachada, uniforme, placa e caderno com a marca Luxo em dourado" loading="lazy" width="1400" height="815">
+          <span class="peca-ver">Ver projeto ↗</span>
+        </a>
+      </div>
+    </article>
+
+    <div class="trabalhos-fim revelar">
+      <a class="botao botao--avatar botao--largo" href="https://www.behance.net/matildemestre2" target="_blank" rel="noopener"><span class="botao-txt">Ver todos os projetos</span><img class="botao-ava" src="assets/avatar.webp" alt="" width="160" height="160"></a>
+    </div>
+  </section>
+
+  <!-- 02 SOBRE -->
   <section id="sobre" class="secao">
     <img class="arte arte--direita" src="assets/img/sobre.webp" alt="" loading="lazy">
     <div class="secao-grade">
       <div class="painel revelar">
-        <span class="rotulo">01</span>
+        <span class="rotulo">02 · Sobre</span>
         <h2>Mais que design, <em>um legado.</em></h2>
         <p>Matilde Mestre assina identidades visuais para marcas no Brasil e em Portugal. Todo projeto começa pela história de quem está por trás do negócio: o que move a marca, com quem ela conversa e como quer ser lembrada.</p>
         <p>Dessa conversa saem o logotipo, as cores, a tipografia e cada peça que a marca vai usar no dia a dia, do pote na vitrine ao post no feed.</p>
@@ -81,75 +211,57 @@
     </div>
   </section>
 
-  <!-- 02 SERVIÇOS -->
+  <!-- 03 O QUE EU CRIO: grupos que abrem e fecham; faixa corre no hover -->
   <section id="servicos" class="secao secao--larga">
     <img class="arte arte--fundo" src="assets/img/servicos.webp" alt="" loading="lazy">
-    <div class="painel painel--cabecalho revelar">
-      <span class="rotulo">02</span>
-      <h2>O que <em>assinamos</em></h2>
+    <div class="painel painel--cabecalho painel--servicos revelar">
+      <div>
+        <span class="rotulo">03 · Serviços</span>
+        <h2>O que eu <em>crio</em></h2>
+      </div>
+      <p>Da estratégia ao post no feed: tudo o que a sua marca precisa para ser reconhecida, desenhado como um único sistema.</p>
     </div>
-    <div class="cartoes">
-      <article class="painel cartao revelar">
-        <h3>Identidade visual</h3>
-        <p>Logotipo, isotipo, paleta de cores, tipografia e elementos gráficos pensados para funcionar juntos.</p>
-      </article>
-      <article class="painel cartao revelar">
-        <h3>Branding</h3>
-        <p>O posicionamento por trás da imagem: o que a marca diz, de que jeito diz e para quem.</p>
-      </article>
-      <article class="painel cartao revelar">
-        <h3>Rebranding</h3>
-        <p>Para marcas que cresceram e não se reconhecem mais na própria imagem. Mantemos o que tem valor e redesenhamos o resto.</p>
-      </article>
-      <article class="painel cartao revelar">
-        <h3>Design gráfico</h3>
-        <p>Embalagens, papelaria, sacolas, fachada e uniformes com a mesma assinatura visual.</p>
-      </article>
-      <article class="painel cartao revelar">
-        <h3>Redes sociais</h3>
-        <p>Modelos de post e peças de campanha que deixam a marca reconhecível no feed.</p>
-      </article>
-      <article class="painel cartao revelar">
-        <h3>Direção criativa</h3>
-        <p>Orientação de fotos, campanhas e lançamentos para que tudo fale a mesma língua da marca.</p>
-      </article>
-    </div>
-  </section>
 
-  <!-- 03 PORTFÓLIO: trabalho real da Matilde -->
-  <section id="portfolio" class="secao secao--larga secao--portfolio">
-    <div class="painel painel--cabecalho painel--caso revelar">
-      <div>
-        <span class="rotulo">03 · Portfólio</span>
-        <h2>Biba’s <em>Sorveteria</em></h2>
-      </div>
-      <div>
-        <p>Identidade completa para uma sorveteria artesanal: logotipo e isotipo, paleta em coral, azul e creme, tipografia Blubly Demo com Poppins, um mascote de sorvete e todas as aplicações, dos potes e casquinhas à sacola, às camisetas, à fachada e aos posts.</p>
-        <p class="links">
-          <a href="https://www.behance.net/matildemestre2" target="_blank" rel="noopener">Mais projetos no Behance ↗</a>
-          <a href="https://www.instagram.com/matildemestre.dsgn" target="_blank" rel="noopener">@matildemestre.dsgn ↗</a>
-        </p>
-      </div>
-    </div>
-    <div class="galeria">
-      <figure class="peca peca--larga revelar"><img src="assets/portfolio/biba-01.webp" alt="Logotipo da Biba's Sorveteria sobre textura de sorvete de morango" loading="lazy" width="1300" height="639"></figure>
-      <figure class="peca revelar"><img src="assets/portfolio/biba-05.webp" alt="Isotipo da Biba's nas três cores da paleta" loading="lazy" width="960" height="547"></figure>
-      <figure class="peca revelar"><img src="assets/portfolio/biba-02.webp" alt="Potes de sorvete da Biba's em coral e azul" loading="lazy" width="656" height="336"></figure>
-      <figure class="peca peca--alta revelar"><img src="assets/portfolio/biba-03.webp" alt="Casquinhas com papel estampado da Biba's" loading="lazy" width="657" height="497"></figure>
-      <figure class="peca revelar"><img src="assets/portfolio/biba-06.webp" alt="Mascote de sorvete em diferentes poses" loading="lazy" width="960" height="550"></figure>
-      <figure class="peca revelar"><img src="assets/portfolio/biba-04.webp" alt="Posts de redes sociais da Biba's" loading="lazy" width="656" height="557"></figure>
-      <figure class="peca peca--larga revelar"><img src="assets/portfolio/biba-09.webp" alt="Campanha de redes sociais com potes e casquinhas" loading="lazy" width="657" height="438"></figure>
-      <figure class="peca revelar"><img src="assets/portfolio/biba-07.webp" alt="Fachada da loja com a identidade da Biba's" loading="lazy" width="657" height="489"></figure>
-      <figure class="peca revelar"><img src="assets/portfolio/biba-08.webp" alt="Sacola de papel coral com o isotipo" loading="lazy" width="656" height="437"></figure>
-      <figure class="peca revelar"><img src="assets/portfolio/biba-10.webp" alt="Camisetas brancas com o mascote" loading="lazy" width="657" height="343"></figure>
+    <div class="painel acordeao revelar">
+      <details class="grupo" open>
+        <summary>Estratégia <span class="sinal" aria-hidden="true"></span></summary>
+        <ul class="itens">
+          <li><span class="item-nome">Branding</span><span class="item-desc">O que a marca diz, de que jeito diz e para quem.</span></li>
+          <li><span class="item-nome">Rebranding</span><span class="item-desc">Mantemos o que tem valor e redesenhamos o resto.</span></li>
+          <li><span class="item-nome">Direção criativa</span><span class="item-desc">Fotos, campanhas e lançamentos falando a mesma língua.</span></li>
+        </ul>
+      </details>
+      <details class="grupo">
+        <summary>Criação &amp; Design <span class="sinal" aria-hidden="true"></span></summary>
+        <ul class="itens">
+          <li><span class="item-nome">Identidade visual</span><span class="item-desc">Logotipo, isotipo, paleta, tipografia e elementos gráficos.</span></li>
+          <li><span class="item-nome">Logotipo</span><span class="item-desc">A assinatura da marca, pensada para funcionar em qualquer tamanho.</span></li>
+          <li><span class="item-nome">Design gráfico</span><span class="item-desc">Embalagens, papelaria, sacolas, fachada e uniformes.</span></li>
+          <li><span class="item-nome">Brand board</span><span class="item-desc">O guia visual da marca reunido numa só peça.</span></li>
+        </ul>
+      </details>
+      <details class="grupo">
+        <summary>Redes sociais <span class="sinal" aria-hidden="true"></span></summary>
+        <ul class="itens">
+          <li><span class="item-nome">Social media</span><span class="item-desc">Modelos de post que deixam a marca reconhecível no feed.</span></li>
+          <li><span class="item-nome">Campanhas</span><span class="item-desc">Peças de lançamento e datas especiais com a mesma assinatura.</span></li>
+        </ul>
+      </details>
     </div>
   </section>
 
   <!-- 04 CONTATO -->
   <section id="contato" class="secao secao--contato">
     <img class="arte arte--fundo arte--suave" src="assets/img/contato.webp" alt="" loading="lazy">
+    <div class="painel chamada revelar">
+      <h2 class="chamada-titulo">Tem um projeto <em>em mente?</em><br><span>Vamos dar forma à <em>sua história.</em></span></h2>
+      <div class="chamada-botoes">
+        <a class="botao botao--avatar js-whats" target="_blank" rel="noopener"><span class="botao-txt">Falar no WhatsApp</span><img class="botao-ava" src="assets/avatar.webp" alt="" width="160" height="160"></a>
+        <a class="botao botao--avatar" href="#f-nome"><span class="botao-txt">Iniciar um projeto</span><img class="botao-ava" src="assets/avatar.webp" alt="" width="160" height="160"></a>
+      </div>
+    </div>
     <div class="painel painel--form revelar">
-      <span class="rotulo">04</span>
+      <span class="rotulo">04 · Contato</span>
       <h2>Conte a história <em>da sua marca.</em></h2>
       <p>Diga em poucas linhas o que você faz e do que precisa. Respondemos por e-mail ou pelo WhatsApp.</p>
       <form class="form" novalidate>
@@ -184,13 +296,16 @@
 
 <footer class="rodape">
   <div class="painel rodape-painel">
-    <img src="assets/logo.png" alt="Matilde Mestre" class="rodape-logo" width="1200" height="200" loading="lazy">
-    <span>Brasil · Portugal</span>
-    <span class="rodape-links">
-      <a href="https://www.instagram.com/matildemestre.dsgn" target="_blank" rel="noopener">Instagram</a>
-      <a href="https://www.behance.net/matildemestre2" target="_blank" rel="noopener">Behance</a>
-    </span>
-    <span>© <span data-ano></span> Matilde Mestre</span>
+    <div class="rodape-linha">
+      <span>Brasil · Portugal</span>
+      <span class="rodape-links">
+        <a href="https://www.instagram.com/matildemestre.dsgn" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.behance.net/matildemestre2" target="_blank" rel="noopener">Behance</a>
+        <a class="js-whats" target="_blank" rel="noopener">WhatsApp</a>
+      </span>
+      <span>© <span data-ano></span> Matilde Mestre</span>
+    </div>
+    <img src="assets/logo-gigante.png" alt="Matilde Mestre" class="rodape-gigante" width="1528" height="480" loading="lazy">
   </div>
 </footer>
 

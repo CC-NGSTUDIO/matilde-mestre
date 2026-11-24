@@ -69,12 +69,20 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
 }
 .topo.rolou { top: 10px; width: min(900px, calc(100% - 24px)); padding: 7px 7px 7px 20px; }
 .marca { text-decoration: none; display: flex; align-items: center; }
-.marca-logo { height: 38px; width: auto; transition: height .5s var(--ease); }
-.topo.rolou .marca-logo { height: 32px; }
+.marca-logo { height: 40px; width: auto; transition: height .5s var(--ease), transform .5s var(--ease); }
+.marca:hover .marca-logo { transform: scale(1.04) rotate(-1deg); }
+.topo.rolou .marca-logo { height: 34px; }
 .marca-texto { font-family: var(--fonte-titulo); font-size: 22px; letter-spacing: .02em; }
 .menu { display: flex; gap: 6px; align-items: center; font-size: 14px; letter-spacing: .03em; }
-.menu a { text-decoration: none; padding: 10px 16px; border-radius: 999px; color: var(--texto); opacity: .78; transition: opacity .3s, background .3s; }
+.menu a { position: relative; text-decoration: none; padding: 10px 16px; border-radius: 999px; color: var(--texto); opacity: .78; transition: opacity .3s, background .3s, color .3s; }
 .menu a:hover { opacity: 1; background: rgb(255 255 255 / .55); }
+/* Traço roxo que cresce do centro no hover */
+.menu a:not(.menu-cta)::after {
+  content: ""; position: absolute; left: 16px; right: 16px; bottom: 6px; height: 1.5px; border-radius: 2px;
+  background: var(--acento); transform: scaleX(0); transition: transform .45s var(--ease);
+}
+.menu a:not(.menu-cta):hover::after { transform: scaleX(1); }
+.menu a:not(.menu-cta):hover { color: var(--acento); }
 .menu-cta { color: var(--acento) !important; font-weight: 600; opacity: 1 !important; margin-left: 4px; }
 @media (max-width: 760px) {
   .menu a:not(.menu-cta) { display: none; }
@@ -93,7 +101,7 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
     linear-gradient(to bottom, transparent 70%, var(--fundo) 100%);
 }
 .momento {
-  position: absolute; inset: auto var(--gutter) 12vh; max-width: 640px;
+  position: absolute; inset: auto var(--gutter) calc(var(--faixa-altura) + 6vh); max-width: 640px;
   opacity: 0; transform: translateY(24px); filter: blur(6px);
   transition: opacity .7s var(--ease), transform .9s var(--ease), filter .7s var(--ease);
   pointer-events: none;
@@ -106,14 +114,29 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
 .apoio { font-size: clamp(16px, 1.3vw, 20px); margin: 0; }
 .destaque { font-family: var(--fonte-titulo); font-size: clamp(24px, 2.8vw, 42px); line-height: 1.2; color: var(--texto); margin: 0 0 .6em; }
 .destaque:last-child { margin: 0; }
-.cine-dica {
-  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-  display: grid; justify-items: center; gap: 8px; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; opacity: .6;
-  transition: opacity .5s;
+
+/* ── Faixa de marcas no pé do hero (passa sem parar; pausa no hover) ──── */
+:root { --faixa-altura: 92px; }
+.marcas {
+  position: absolute; left: 0; right: 0; bottom: 0; height: var(--faixa-altura); z-index: 2;
+  display: flex; align-items: center; overflow: hidden;
+  background: linear-gradient(180deg, rgb(255 255 255 / .42), rgb(245 246 247 / .26));
+  border-top: 1px solid rgb(255 255 255 / .6);
+  backdrop-filter: blur(20px) saturate(1.7); -webkit-backdrop-filter: blur(20px) saturate(1.7);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .9), 0 -10px 40px rgb(12 10 18 / .06);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
-.cine-dica span { width: 1px; height: 38px; background: linear-gradient(var(--texto), transparent); animation: dica 2s var(--ease) infinite; }
-@keyframes dica { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
-.cine.andou .cine-dica { opacity: 0; }
+.marcas-trilho { display: flex; width: max-content; animation: faixa 38s linear infinite; }
+.marcas:hover .marcas-trilho { animation-play-state: paused; }
+.marcas-lista { display: flex; align-items: center; gap: clamp(48px, 6vw, 96px); margin: 0; padding: 0 clamp(24px, 3vw, 48px); list-style: none; }
+.marcas-lista li { flex: none; }
+.marcas-lista img {
+  height: 38px; width: auto; max-width: none; opacity: .72; filter: saturate(.9);
+  transition: opacity .4s, transform .5s var(--ease), filter .4s;
+}
+.marcas-lista li:hover img { opacity: 1; transform: scale(1.12); filter: saturate(1.2) drop-shadow(0 6px 14px rgb(85 19 216 / .3)); }
+@keyframes faixa { to { transform: translateX(-50%); } }
 
 /* ── Painéis (todo texto mora num painel) ──────────────────────────────── */
 .painel {
@@ -140,28 +163,103 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
 .secao-grade--direita > .painel { grid-column: 2; }
 .secao--larga { gap: 28px; justify-items: center; }
 .painel--cabecalho { width: 100%; max-width: var(--largura); }
-.cartoes { width: 100%; max-width: var(--largura); display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-.cartao h3 { margin-bottom: .4em; }
-.cartao { transition: transform .5s var(--ease), border-color .5s; }
-.cartao:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--acento) 50%, transparent); }
-.cartoes { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 
-/* ── Portfólio (trabalho real: peças inteiras, sem recorte) ───────────── */
-.painel--caso { display: grid; grid-template-columns: 1fr 1.25fr; gap: 12px 48px; align-items: end; }
-.painel--caso h2 { margin: 0; }
-.links { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 0; }
-.links a { color: var(--acento); text-decoration: none; font-weight: 600; font-size: 15px; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
-.galeria { width: 100%; max-width: var(--largura); columns: 3 300px; column-gap: 20px; }
-.peca { margin: 0 0 20px; break-inside: avoid; border-radius: 14px; overflow: hidden; background: var(--fundo-2); box-shadow: 0 18px 50px rgb(12 10 18 / .08); }
-.peca img { width: 100%; height: auto; transition: transform 1.2s var(--ease); }
-.peca:hover img { transform: scale(1.03); }
-@media (max-width: 860px) { .painel--caso { grid-template-columns: 1fr; } }
+/* ── Portfólio: categoria fixa à esquerda, imagens passando à direita ─── */
+.trabalhos { position: relative; padding: 16vh var(--gutter) 12vh; display: grid; gap: clamp(40px, 8vh, 90px); justify-items: center; }
+.trabalhos-topo { width: 100%; max-width: var(--largura); display: grid; grid-template-columns: 1fr 1fr; gap: 12px 56px; align-items: end; }
+.trabalhos-topo h2 { margin: 0; }
+.trabalhos-topo p { margin: 0; }
+.trabalho {
+  width: 100%; max-width: var(--largura);
+  display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.25fr); gap: clamp(24px, 4vw, 64px); align-items: start;
+}
+.trabalho-info { position: sticky; top: 16vh; }
+.trabalho-sobre { display: block; font-size: 13px; letter-spacing: .04em; font-weight: 600; color: var(--texto-suave); margin-bottom: 6px; }
+.trabalho-categoria { font-size: clamp(44px, 5.4vw, 84px); line-height: .98; margin-bottom: .32em; color: var(--acento); }
+.trabalho-painel p { font-size: 15.5px; }
+.cliente { display: grid; gap: 6px; margin: 22px 0 26px; }
+.cliente-rotulo { font-size: 10px; letter-spacing: .32em; text-transform: uppercase; color: var(--cinza); font-weight: 600; }
+.cliente-nome { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 16px; }
+.cliente-nome img {
+  height: 36px; width: auto; max-width: 150px; object-fit: contain; padding: 8px 12px; border-radius: 10px;
+  background: rgb(255 255 255 / .75); box-shadow: inset 0 0 0 1px rgb(85 19 216 / .12);
+}
+.trabalho-imagens { display: grid; gap: clamp(20px, 4vh, 40px); }
+.peca {
+  position: relative; display: block; border-radius: 16px; overflow: hidden; isolation: isolate;
+  background: var(--fundo-2); box-shadow: 0 24px 60px rgb(12 10 18 / .12);
+  transition: transform .7s var(--ease), box-shadow .7s var(--ease);
+}
+.peca img { width: 100%; height: auto; transition: transform 1.2s var(--ease), filter .7s; }
+.peca::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top, rgb(12 10 18 / .45), transparent 45%); opacity: 0; transition: opacity .6s; }
+.peca-ver {
+  position: absolute; z-index: 1; right: 18px; bottom: 18px;
+  padding: 11px 18px; border-radius: 999px; font: 600 13px/1 var(--fonte-texto); letter-spacing: .06em; text-transform: uppercase; color: #fff;
+  background: linear-gradient(180deg, rgb(255 255 255 / .28), rgb(255 255 255 / .12));
+  border: 1px solid rgb(255 255 255 / .45);
+  backdrop-filter: blur(14px) saturate(1.6); -webkit-backdrop-filter: blur(14px) saturate(1.6);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .6), 0 10px 26px rgb(12 10 18 / .25);
+  opacity: 0; transform: translateY(12px) scale(.96); transition: opacity .5s, transform .6s var(--ease);
+}
+.peca:hover, .peca:focus-visible { transform: translateY(-6px); box-shadow: 0 34px 80px rgb(85 19 216 / .22); }
+.peca:hover img, .peca:focus-visible img { transform: scale(1.05); filter: saturate(1.08); }
+.peca:hover::after, .peca:focus-visible::after { opacity: 1; }
+.peca:hover .peca-ver, .peca:focus-visible .peca-ver { opacity: 1; transform: none; }
+.trabalhos-fim { display: flex; justify-content: center; }
+@media (max-width: 860px) {
+  .trabalhos-topo, .trabalho { grid-template-columns: 1fr; }
+  .trabalho-info { position: static; }
+  .peca-ver { opacity: 1; transform: none; }
+}
 
-.passos { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: p; display: grid; gap: 22px; }
-.passos li { counter-increment: p; display: grid; grid-template-columns: 42px 1fr; column-gap: 12px; }
-.passos li::before { content: counter(p, decimal-leading-zero); grid-row: span 2; font-family: var(--fonte-titulo); color: var(--acento); font-size: 22px; }
-.passos strong { font-weight: 600; }
-.passos span { color: var(--texto-suave); }
+/* ── O que eu crio: grupos que abrem e fecham ─────────────────────────── */
+.painel--servicos { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 56px; align-items: end; }
+.painel--servicos h2, .painel--servicos p { margin: 0; }
+.acordeao { width: 100%; max-width: var(--largura); padding-top: 8px; padding-bottom: 8px; }
+.grupo { border-bottom: 1px solid var(--linha); }
+.grupo:last-child { border-bottom: 0; }
+.grupo summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 26px 0; font-family: var(--fonte-titulo); font-size: clamp(30px, 3.4vw, 50px); line-height: 1.05;
+  transition: color .3s, padding-left .5s var(--ease);
+}
+.grupo summary::-webkit-details-marker { display: none; }
+.grupo summary:hover { color: var(--acento); padding-left: 10px; }
+.sinal { position: relative; flex: none; width: 22px; height: 22px; }
+.sinal::before, .sinal::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1.5px; margin-top: -.75px; background: currentColor; transition: transform .5s var(--ease); }
+.sinal::after { transform: rotate(90deg); }
+.grupo[open] .sinal::after { transform: rotate(0); }
+.grupo[open] summary { color: var(--acento); }
+/* Abre com animação onde o navegador suporta */
+:root { interpolate-size: allow-keywords; }
+.grupo::details-content { block-size: 0; overflow: clip; transition: block-size .6s var(--ease), content-visibility .6s allow-discrete; }
+.grupo[open]::details-content { block-size: auto; }
+.itens { list-style: none; margin: 0; padding: 0 0 22px; }
+.itens li {
+  position: relative; overflow: hidden; display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
+  padding: 16px 14px; margin: 0 -14px; border-radius: 12px; cursor: default;
+}
+.item-nome { font-weight: 700; font-size: clamp(15px, 1.25vw, 19px); letter-spacing: .04em; text-transform: uppercase; }
+.item-desc { font-size: 14.5px; color: var(--texto-suave); text-align: right; }
+/* Faixa que corre por cima do item no hover (montada pelo app.js) */
+.item-faixa {
+  position: absolute; inset: 0; display: flex; align-items: center; overflow: hidden; pointer-events: none;
+  color: #fff; border-radius: inherit;
+  background:
+    radial-gradient(120% 160% at 20% 0%, rgb(255 255 255 / .3), transparent 55%),
+    linear-gradient(180deg, rgb(112 56 236 / .94), rgb(85 19 216 / .92));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .55), inset 0 -3px 8px rgb(30 0 90 / .28);
+  clip-path: inset(50% 0 50% 0 round 12px); transition: clip-path .5s var(--ease);
+}
+.item-faixa-trilho { display: flex; align-items: center; width: max-content; animation: faixa 14s linear infinite; }
+.item-faixa span { display: inline-flex; align-items: center; gap: 22px; padding-right: 22px; font-weight: 700; font-size: clamp(15px, 1.25vw, 19px); letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+.item-faixa img { width: 30px; height: 30px; border-radius: 50%; box-shadow: 0 0 0 2px rgb(255 255 255 / .7); }
+.itens li:hover .item-faixa { clip-path: inset(0 0 0 0 round 12px); }
+@media (max-width: 640px) {
+  .painel--servicos { grid-template-columns: 1fr; }
+  .itens li { flex-direction: column; gap: 4px; }
+  .item-desc { text-align: left; }
+}
 
 /* ── Arte: imagens fundidas ao fundo (nunca retângulo com borda) ───────── */
 .arte {
@@ -191,7 +289,12 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
 .arte[data-parallax] { will-change: transform; }
 
 /* ── Contato ───────────────────────────────────────────────────────────── */
-.secao--contato { justify-items: center; }
+.secao--contato { justify-items: center; gap: 28px; }
+.chamada { width: 100%; max-width: var(--largura); display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 28px 40px; }
+.chamada-titulo { margin: 0; font-size: clamp(40px, 5.6vw, 88px); line-height: 1; }
+.chamada-titulo > span { color: var(--acento); }
+.chamada-titulo > span em { color: var(--texto); }
+.chamada-botoes { display: grid; gap: 14px; justify-items: end; }
 .painel--form { width: 100%; max-width: 760px; }
 .form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
 .campo { display: grid; gap: 6px; }
@@ -216,10 +319,41 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   font: 600 15px/1 var(--fonte-texto); letter-spacing: .02em; text-decoration: none; cursor: pointer;
   color: var(--acento-texto); background: var(--acento); border: 0; border-radius: 999px;
-  padding: 17px 30px; transition: transform .4s var(--ease), filter .3s;
+  padding: 17px 30px; transition: transform .4s var(--ease), translate .5s var(--ease), filter .3s, box-shadow .4s;
 }
 .botao:hover { transform: translateY(-2px); filter: brightness(1.12); box-shadow: 0 12px 30px rgb(85 19 216 / .28); }
 .botao[disabled] { opacity: .6; cursor: progress; }
+.botao { overflow: hidden; isolation: isolate; }
+/* Brilho que atravessa o botão no hover */
+.botao::after {
+  content: ""; position: absolute; inset: -2px; z-index: -1; pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / .5) 50%, transparent 70%);
+  transform: translateX(-130%); transition: transform .9s var(--ease);
+}
+.botao:hover::after, .botao:focus-visible::after { transform: translateX(130%); }
+.botao:active { transform: scale(.97); }
+
+/* Botão com avatar: só o rosto aparece; no hover o texto entra e o rosto desliza */
+.botao--avatar { width: 252px; height: 58px; padding: 0; justify-content: flex-start; }
+.botao--largo { width: 300px; }
+.botao-ava {
+  position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 2px rgb(255 255 255 / .75), 0 6px 16px rgb(30 0 90 / .35);
+  transition: left .7s var(--ease), transform .7s var(--ease);
+}
+.botao-txt {
+  position: absolute; left: 26px; right: 70px; text-align: left; white-space: nowrap;
+  font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+  opacity: 0; transform: translateX(-14px); transition: opacity .45s, transform .7s var(--ease);
+}
+.botao--avatar:hover .botao-ava, .botao--avatar:focus-visible .botao-ava { left: calc(100% - 32px); transform: translate(-50%, -50%) rotate(-10deg) scale(1.06); }
+.botao--avatar:hover .botao-txt, .botao--avatar:focus-visible .botao-txt { opacity: 1; transform: none; transition-delay: .12s; }
+/* Telas de toque não têm hover: mostra texto e rosto juntos */
+@media (hover: none), (pointer: coarse), (max-width: 760px) {
+  .botao--avatar .botao-ava { left: calc(100% - 32px); }
+  .botao--avatar .botao-txt { opacity: 1; transform: none; }
+}
 
 /* ── WhatsApp flutuante ────────────────────────────────────────────────── */
 .whats {
@@ -236,11 +370,15 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
 
 /* ── Rodapé ────────────────────────────────────────────────────────────── */
 .rodape { padding: 0 var(--gutter) 40px; }
-.rodape-painel { max-width: var(--largura); margin: 0 auto; display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: center; justify-content: space-between; font-size: 14px; color: var(--prata); padding: 28px 36px; background: var(--violeta); border-color: var(--violeta); }
-.rodape-logo { height: 34px; width: auto; filter: brightness(1.35); }
-.rodape-links { display: flex; gap: 22px; }
-.rodape-links a { color: #fff; text-decoration: none; }
-.rodape-links a:hover { color: var(--prata); }
+.rodape-painel { max-width: var(--largura); margin: 0 auto; display: grid; gap: clamp(28px, 5vw, 56px); font-size: 14px; color: var(--prata); padding: clamp(24px, 3vw, 40px); background: var(--violeta); border-color: var(--violeta); overflow: hidden; }
+.rodape-linha { display: flex; flex-wrap: wrap; gap: 14px 32px; align-items: center; justify-content: space-between; }
+.rodape-gigante { width: 100%; height: auto; opacity: .92; transition: transform 1.2s var(--ease), opacity .6s, filter .6s; }
+.rodape-painel:hover .rodape-gigante { transform: scale(1.015); opacity: 1; filter: drop-shadow(0 0 30px rgb(140 90 255 / .35)); }
+.rodape-links { display: flex; flex-wrap: wrap; gap: 22px; }
+.rodape-links a { position: relative; color: #fff; text-decoration: none; cursor: pointer; }
+.rodape-links a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -3px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .45s var(--ease); }
+.rodape-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+.rodape-links a:hover { color: #d9ccff; }
 
 /* ── Revelar ao rolar ──────────────────────────────────────────────────── */
 .revelar { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease), transform 1.2s var(--ease); }
@@ -330,6 +468,19 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
   box-shadow: inset 0 1px 0 rgb(255 255 255 / .18), 0 20px 50px rgb(12 10 18 / .2);
 }
 .rodape-painel::before { opacity: .35; }
+/* Luz que segue o mouse dentro dos blocos de vidro (posição vem do app.js) */
+.painel::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / .55), rgb(170 140 255 / .10) 40%, transparent 70%);
+  opacity: 0; transition: opacity .5s;
+}
+.painel:hover::after { opacity: 1; }
+.rodape-painel::after { background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 50%), rgb(140 90 255 / .22), transparent 70%); }
+.painel { transition: box-shadow .6s var(--ease), border-color .6s; }
+.painel.revelar { transition: opacity 1s var(--ease), transform 1.2s var(--ease), box-shadow .6s var(--ease); }
+.trabalho-painel:hover, .painel--form:hover, .chamada:hover { box-shadow: var(--vidro-brilho), 0 1px 2px rgb(12 10 18 / .05), 0 26px 70px rgb(85 19 216 / .12); }
+.whats { transition: transform .5s var(--ease), translate .5s var(--ease), box-shadow .4s; }
+.whats.visivel:hover { transform: scale(1.1) rotate(-8deg); box-shadow: inset 0 1px 0 rgb(255 255 255 / .65), 0 16px 36px rgb(30 180 88 / .4); }
 /* Sem suporte a backdrop-filter: vidro vira leite sólido, ainda legível */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .topo, .painel { background: rgb(245 246 247 / .94); }
@@ -343,14 +494,21 @@ p { margin: 0 0 1em; color: var(--texto-suave); text-wrap: pretty; }
   .arte--direita, .arte--esquerda { left: 0; right: 0; width: 100%; height: 70%; opacity: .55;
     -webkit-mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 55%, transparent);
             mask-image: linear-gradient(to bottom, transparent, #000 25%, #000 55%, transparent); }
-  .momento, .momento--direita { left: var(--gutter); right: var(--gutter); bottom: 10vh; }
+  .momento, .momento--direita { left: var(--gutter); right: var(--gutter); bottom: calc(var(--faixa-altura) + 4vh); }
   .momento--centro { left: 50%; right: auto; }
-  .cartoes { grid-template-columns: 1fr; }
+  :root { --faixa-altura: 68px; }
+  .marcas-lista { gap: 44px; }
+  .marcas-lista img { height: 26px; }
+  .chamada-botoes { justify-items: start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .revelar, .momento--primeiro { opacity: 1; transform: none; filter: none; }
   .cine { height: 100svh; }
-  .momento:not(.momento--primeiro), .cine-dica { display: none; }
+  .momento:not(.momento--primeiro) { display: none; }
+  .marcas { overflow-x: auto; }
+  .botao--avatar .botao-ava { left: calc(100% - 32px); }
+  .botao--avatar .botao-txt { opacity: 1; transform: none; }
+  .item-faixa { display: none; }
 }
